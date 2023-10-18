@@ -14,25 +14,24 @@ function setup() {
 }
 
 function draw() {
-  background(220, 20, 120);
+  background(255);
+  noStroke(); 
 
-  for(let vi = 0; vi<mImg.pixels.length; vi+=4) {
-    let redVal = mImg.pixels[vi]; 
-    let greenVal = mImg.pixels[vi+1]; 
-    let blueVal = mImg.pixels[vi+2]; 
-    let alphaVal = mImg.pixels[vi+3]; 
+  mImg.loadPixels(); 
+  let spacing = 32; 
 
-    let maxVal = max(redVal, greenVal, blueVal);
-    // if(maxVal == redVal) { 
-    //   mImg.pixels[vi + 0] = 255; 
-    // } else if (maxVal == greenVal) {
-    //   mImg.pixels[vi + 1] = 255; 
-    //}
-     if (maxVal == blueVal) {
-      mImg.pixels[vi + 3] = 0; 
+  for (let y = 0; y< mImg.height; y+=spacing) {
+    for (let x = 0; x< mImg.width; x+=spacing) {
+      let pixelIndex = 4* (y * mImg.width + x); 
+        let redVal = mImg.pixels[pixelIndex + 0]; 
+        let greenVal = mImg.pixels[pixelIndex+1]; 
+        let blueVal = mImg.pixels[pixelIndex+2];
+
+        fill(redVal, greenVal, blueVal); 
+        ellipse(x,y,spacing,spacing); 
+    }
   }
-}
   mImg.updatePixels(); 
-  image(mImg,(width - mImg.width)/2, 0);
+ // image(mImg,(width - mImg.width)/2, 0);
 
 }
